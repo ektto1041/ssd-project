@@ -15,7 +15,7 @@ public class TestShell {
             System.out.println("명령어에 대한 설명이 필요하면 help를 입력하십시오.");
 
             while (true) {
-                this.command = br.readLine().trim();
+                this.command = br.readLine();
 
                 if (command.equals("testapp1")) {
                     System.out.println("test1 실행. 채워넣을 데이터를 입력해주세요.");
@@ -34,7 +34,7 @@ public class TestShell {
                     System.out.println("- fullwrite 모든 데이터를 입력합니다.");
                     System.out.println("- fullread 모든 데이터를 읽어옵니다.");
 
-                } else if (command.contains("write") && !command.contains("fullwrite")) {
+                } else if (command.contains("write") && !command.equals("fullwrite")) {
                     String[] writeTemp = command.split(" ");
                     String lba = writeTemp[1];
                     String value = writeTemp[2];
@@ -43,7 +43,7 @@ public class TestShell {
                     String[] readTemp = command.split(" ");
                     String lba = readTemp[1];
                     readCommand(lba);
-                } else if (command.contains("fullwrite")){
+                } else if (command.equals("fullwrite")){
                     fullwrite();
                 } else if (command.equals("fullread")){
                     fullread();
@@ -93,10 +93,6 @@ public class TestShell {
         //processBuilder.directory(new File("C:\\ssd_project\\ssd-project\\src\\main\\java\\testshell"));
         Process ps = processBuilder.start();
 
-
-        String line = br.readLine().trim();
-        br.close();
-        System.out.println(line);
         ps.destroy();
     }
     public void readCommand(String lba) throws IOException, URISyntaxException {
@@ -106,10 +102,6 @@ public class TestShell {
         ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", path,"R",lba);
 //        processBuilder.directory(new File("C:\\ssd_project\\ssd-project\\src\\main\\java\\testshell"));
         Process ps = processBuilder.start();
-        String line = br.readLine().trim();
-        String line2 = br.readLine().trim();
-        System.out.println(line);
-        System.out.println(line2);
         ps.destroy(); // 프로세스 종료
     }
     public void fullread() throws IOException, URISyntaxException {
@@ -120,7 +112,7 @@ public class TestShell {
     }
     public void fullwrite() throws IOException, URISyntaxException {
 
-        String value = br.readLine().trim();
+        String value = br.readLine();
         for (int i=0; i<30; i++){
             String lba = Integer.toString(i);
             writeCommand(lba, value);
