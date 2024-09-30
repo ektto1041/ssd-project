@@ -1,7 +1,9 @@
 package fileio;
 
-public interface FileIO {
-    String read(String fileName);
+import java.io.IOException;
 
-    void write(String fileName, String value);
+public interface FileIO {
+    String read(String fileName) throws IOException;
+
+    void write(String fileName, String value) throws IOException;
 }
